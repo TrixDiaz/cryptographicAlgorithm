@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CRYPTPGRAPHY</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+<body>  
+
+<div class="container p-5">
+  <h2 class="mb-4">CRYPTPGRAPHY</h2>
+    <div class="container">
+        <input type="text" class="my-2 form-control "  id="message" placeholder="Enter text to encrypt">
+    <button onclick="encrypt()" class="btn btn-warning mb-2">Encrypt</button>
+    <br>
+    <input type="text" id="encryptedMessage" class="my-2 form-control"  placeholder="Enter text to decrypt">
+    <button onclick="decrypt()" class="btn btn-warning mb-2">Decrypt</button>
+    <br>
+    <div class="text container ">
+    <label id="encryptionResult" class="h3 my-3"></label>
+    <label id="decryptionResult" class="h3 my-3"></label>
+    </div>
+</div>
+
+<div class="paragraph text-center h5">
+    <p>Asymmetric cryptography involves a pair of keys to encrypt and decrypt data. The two participants in the asymmetric encryption workflow are the sender and the receiver. Each has its own pair of public and private keys. First, the sender obtains the receiver's public key.</p>
+</div>
+
+
+<script>
+function encrypt() {
+  var messageInput = document.getElementById('message');
+  var encryptionResultLabel = document.getElementById('encryptionResult');
+  
+  // Check if the input field is not empty
+  if (messageInput.value) {
+    // Perform encryption here
+    // Encryption key (must be 16, 24, or 32 bytes for AES-128, AES-192, or AES-256)
+    var key = '0123456789012345';
+    // Initialization vector (IV) - must be 16 bytes
+    var iv = window.crypto.getRandomValues(new Uint8Array(16));
+
+    // Encryption
+    var encrypted = window.btoa(unescape(encodeURIComponent(messageInput.value))); // Encoding to base64 for display
+
+    encryptionResultLabel.textContent = 'Encrypted Message: ' + encrypted;
+
+    // You can also send the encrypted data to a server for decryption and other operations
+  } else {
+    encryptionResultLabel.textContent = 'Please enter a message before encrypting.';
+  }
+}
+
+function decrypt() {
+  var encryptedMessageInput = document.getElementById('encryptedMessage');
+  var decryptionResultLabel = document.getElementById('decryptionResult');
+  
+  // Check if the input field is not empty
+  if (encryptedMessageInput.value) {
+    // Perform decryption here
+    // Decrypt the message using the appropriate decryption logic
+    var decrypted = decodeURIComponent(escape(window.atob(encryptedMessageInput.value)));
+
+    decryptionResultLabel.textContent = 'Decrypted Message: ' + decrypted;
+  } else {
+    decryptionResultLabel.textContent = 'Please enter an encrypted message for decryption.';
+  }
+}
+</script>
+
+</body>
+</html>
